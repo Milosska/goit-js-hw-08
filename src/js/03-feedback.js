@@ -18,8 +18,10 @@ function onPageLoad() {
   const savedData = JSON.parse(localStorage.getItem(FORM_STATE));
 
   if (savedData) {
-    formEl.email.value = savedData.email;
-    formEl.message.value = savedData.message;
+    Object.entries(savedData).forEach(([key, value]) => {
+      formEl[key].value = value;
+      userData[key] = value;
+    });
   }
 }
 
@@ -29,4 +31,5 @@ function onSubmit(evt) {
 
   console.dir(JSON.parse(localStorage.getItem(FORM_STATE)));
   localStorage.removeItem(FORM_STATE);
+  userData = {};
 }
